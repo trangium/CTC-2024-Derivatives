@@ -19,16 +19,16 @@ class Strategy:
 
   def generate_orders(self) -> pd.DataFrame:
     orders = []
-    num_orders = 100
+    num_orders = 1
     
     for _ in range(num_orders):
       row = self.options.sample(n=1).iloc[0]
       action = random.choice(["B", "S"])
       
       if action == "B":
-        order_size = random.randint(1, int(row["ask_sz_00"]))
+        order_size = 1 #random.randint(1, int(row["ask_sz_00"]))
       else:
-        order_size = random.randint(1, int(row["bid_sz_00"]))
+        order_size = 2 #random.randint(1, int(row["bid_sz_00"]))
 
       assert order_size <= int(row["ask_sz_00"]) or order_size <= int(row["bid_sz_00"])
       
@@ -38,6 +38,8 @@ class Strategy:
         "action" : action,
         "order_size" : order_size
       }
+
+      print(order)
       orders.append(order)
     
     return pd.DataFrame(orders)
